@@ -1,5 +1,7 @@
 var http = require("https");
-
+class Requester{
+	constructor(){
+		
 var options = {
 	"method": "POST",
 	"hostname": "judge0.p.rapidapi.com",
@@ -15,6 +17,7 @@ var options = {
 };
 
 var req = http.request(options, function (res) {
+	console.log(req);
 	var chunks = [];
 
 	res.on("data", function (chunk) {
@@ -33,3 +36,6 @@ req.write(JSON.stringify({
   stdin: 'world'
 }));
 req.end();
+};
+};
+module.exports = Requester;

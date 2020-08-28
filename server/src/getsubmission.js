@@ -1,4 +1,6 @@
 var http = require("https");
+class GetSubmission{
+	constructor(){
 
 var options = {
 	"method": "GET",
@@ -26,3 +28,7 @@ var req = http.request(options, function (res) {
 });
 
 req.end();
+};
+};
+
+module.exports = GetSubmission;

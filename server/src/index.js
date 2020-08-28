@@ -3,6 +3,10 @@
 const express = require('express');
 const path = require('path');
 
+// Import requester and getsubmission classes
+const Requester = require('./requester');
+const GetSubmission = require('./getsubmission');
+
 // Constants
 const PORT = process.env.PORT || 8080;
 const HOST = '0.0.0.0';
