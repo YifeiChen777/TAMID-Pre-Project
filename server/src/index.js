@@ -6,6 +6,7 @@ const path = require('path');
 // Import requester and getsubmission classes
 const Requester = require('./requester');
 const GetSubmission = require('./getsubmission');
+// const { request } = require('http');
 
 // Constants
 const PORT = process.env.PORT || 8080;
@@ -29,7 +30,11 @@ app.get('/api', (req, res) => {
   res.send(JSON.stringify(data, null, 2));
 });
 
-app.post('/posthere', (req, res) => {
+app.get('/posthere', (req, res) => {
+  const requester = new Requester();
+  // Here is the problem: the key is not being returned. Instead, it is simply returning undefined.
+  let key = requester.makeRequest('public class Main { public static void main(String[] args) {   System.out.println("hello, world. this is Aaron!");   } }'); 
+  console.log(key);
   const submission = {
     text: req.body.text
 }
