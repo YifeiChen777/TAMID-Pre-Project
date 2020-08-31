@@ -45,15 +45,17 @@ class Judge0 {
 
    // Submission Getter
    submissiongetter(key) {
-      //trim key to only include the key itself:
-      this.key = key.substring(10, 46);
+      // Get key from JSON object
+      let key_object = JSON.parse(key);
+      this.key = key_object.token;
+
       return new Promise(resolve => {
          this.options = {
             "method": "GET",
             "hostname": "judge0.p.rapidapi.com",
             "port": null,
-            // "path": `/submissions/${this.key}`,
-            "path": `/submissions/7e756619-529e-453c-bf87-8f3935910593`,
+            "path": `/submissions/${this.key}`,
+            // "path": `/submissions/7e756619-529e-453c-bf87-8f3935910593`,
             "headers": {
                "x-rapidapi-host": "judge0.p.rapidapi.com",
                "x-rapidapi-key": "7277655346msh461e0f9f07d7b79p18d3d0jsn042f30eb8a12",
@@ -69,7 +71,6 @@ class Judge0 {
             });
             res.on("end", function () {
                var body = Buffer.concat(chunks);
-               console.log("-------" + body.toString());
                let response = body.toString();
                resolve(response);
             });

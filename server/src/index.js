@@ -19,54 +19,67 @@ app.use(express.static(CLIENT_BUILD_PATH));
 
 // API
 app.get('/api', (req, res) => {
-  res.set('Content-Type', 'application/json');
-  let data = {
-    message: 'Hello world'
-  };
-  res.send(JSON.stringify(data, null, 2));
+   res.set('Content-Type', 'application/json');
+   let data = {
+      message: 'Hello world'
+   };
+   res.send(JSON.stringify(data, null, 2));
 });
 
 app.get('/posthere', (req, res) => {
-  
-  let input = 'public class Main { public static void main(String[] args) {   System.out.println("hello, world. this is Aaron!");   } }';
-  const judge0 = new Judge0();
 
-  async function theRequest(input){
-    let key = await judge0.makeRequest(input);
-    console.log(key);
-    let response = await judge0.submissiongetter(key);
-    console.log(response);
-  }
-  theRequest(input);
-  const submission = {
-    text: req.body.text
-  }
-//   console.log(submission);
-  res.send(submission);
+   let input = 'public class Main { public static void main(String[] args) {   System.out.println("hello, world. this is Aaron!");   } }';
+   const judge0 = new Judge0();
+
+   async function theRequest(input) {
+      let key = await judge0.makeRequest(input);
+      console.log(key);
+      let response = await judge0.submissiongetter(key);
+      console.log(response);
+   }
+   theRequest(input);
+   const submission = {
+      text: req.body.text
+   }
+   //   console.log(submission);
+   res.send(submission);
 });
 
 // Test post
 
-app.post('/testpost',(req,res) => {
+app.post('/testpost', (req, res) => {
    const input = {
       text: req.body.text
    };
    // let input = 'public class Main { public static void main(String[] args) {   System.out.println("hello, world. this is Aaron!");   } }';
-  const judge0 = new Judge0();
+   const judge0 = new Judge0();
 
-  async function theRequest(input){
-    let key = await judge0.makeRequest(input);
-    console.log(key);
-    let response = await judge0.submissiongetter(key);
-    console.log(response);
-    res.send(response);
-  }
-  theRequest(input.text);
-   
+   async function theRequest(input) {
+      let key = await judge0.makeRequest(input);
+      console.log(key);
+      
+      
+     async function waitResponse() {
+         let response = await judge0.submissiongetter(key);
+         let response_object = JSON.parse(response);
+         console.log(response);
+         console.log(response_object);
+         res.send(response);
+       } setTimeout(waitResponse, 3000);
+
+
+
+       
+      
+      
+      
+   }
+   theRequest(input.text);
+
 })
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', function (request, response) {
-  response.sendFile(path.join(CLIENT_BUILD_PATH, 'index.html'));
+   response.sendFile(path.join(CLIENT_BUILD_PATH, 'index.html'));
 });
 
 app.listen(PORT, HOST);
