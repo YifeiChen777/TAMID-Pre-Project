@@ -48,7 +48,21 @@ app.get('/posthere', (req, res) => {
 // Test post
 
 app.post('/testpost',(req,res) => {
-  res.send('test received!');
+   const input = {
+      text: req.body.text
+   };
+   // let input = 'public class Main { public static void main(String[] args) {   System.out.println("hello, world. this is Aaron!");   } }';
+  const judge0 = new Judge0();
+
+  async function theRequest(input){
+    let key = await judge0.makeRequest(input);
+    console.log(key);
+    let response = await judge0.submissiongetter(key);
+    console.log(response);
+    res.send(response);
+  }
+  theRequest(input.text);
+   
 })
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', function (request, response) {
