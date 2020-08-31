@@ -2,11 +2,7 @@
 
 const express = require('express');
 const path = require('path');
-
-// Import requester and getsubmission classes
-const Requester = require('./requester');
-const GetSubmission = require('./getsubmission');
-// const { request } = require('http');
+const Judge0 = require('./judge0');
 
 // Constants
 const PORT = process.env.PORT || 8080;
@@ -33,23 +29,27 @@ app.get('/api', (req, res) => {
 app.get('/posthere', (req, res) => {
   
   let input = 'public class Main { public static void main(String[] args) {   System.out.println("hello, world. this is Aaron!");   } }';
-  const requester = new Requester();
-  const getsubmission = new GetSubmission();
+  const judge0 = new Judge0();
+
   async function theRequest(input){
-    let key = await requester.makeRequest(input);
+    let key = await judge0.makeRequest(input);
     console.log(key);
-    let response = await getsubmission.submissiongetter(key);
+    let response = await judge0.submissiongetter(key);
     console.log(response);
   }
   theRequest(input);
   const submission = {
     text: req.body.text
   }
-  console.log(submission);
+//   console.log(submission);
   res.send(submission);
 });
 
+// Test post
 
+app.post('/testpost',(req,res) => {
+  res.send('test received!');
+})
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', function (request, response) {
   response.sendFile(path.join(CLIENT_BUILD_PATH, 'index.html'));
