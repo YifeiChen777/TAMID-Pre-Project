@@ -1,9 +1,7 @@
 var http = require("https");
-var EventEmitter = require("events").EventEmitter;
 
 class Requester {
     constructor() {
-
         this.options = {
             "method": "POST",
             "hostname": "judge0.p.rapidapi.com",
@@ -35,7 +33,6 @@ class Requester {
                     resolve(key);
                 });
             });
-
             req.write(JSON.stringify({
                 language_id: 62,
                 //   source_code: 'public class Main { public static void main(String[] args) {   System.out.println("hello, world. this is Aaron!");   } }', 
@@ -43,9 +40,7 @@ class Requester {
                 stdin: 'world'
             }));
             req.end();
-            
         });
     }
 }
-
 module.exports = Requester;
