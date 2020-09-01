@@ -56,27 +56,22 @@ app.post('/testpost', (req, res) => {
 
    async function theRequest(input) {
       let key = await judge0.makeRequest(input);
-      console.log(key);
-      
-      
-     async function waitResponse() {
+      async function waitResponse() {
          let response = await judge0.submissiongetter(key);
          let response_object = JSON.parse(response);
-         console.log(response);
          console.log(response_object);
-         res.send(response);
-       } setTimeout(waitResponse, 3000);
-
-
-
-       
-      
-      
-      
+         if (response_object.status.id <= 2) {
+            setTimeout(waitResponse, 200);
+         } else {
+            res.send(response);
+         }
+      }
+      waitResponse();
    }
    theRequest(input.text);
-
 })
+
+
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', function (request, response) {
    response.sendFile(path.join(CLIENT_BUILD_PATH, 'index.html'));

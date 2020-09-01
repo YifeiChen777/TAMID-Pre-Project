@@ -72,7 +72,14 @@ class Judge0 {
             res.on("end", function () {
                var body = Buffer.concat(chunks);
                let response = body.toString();
+               // let response_object = JSON.parse(response);
+               // console.log(response_object.status.id);
                resolve(response);
+               // if (response_object.status.id <= 2){
+               //    setTimeout(submissiongetter.bind(null, key), 200);
+               // } else {
+               // resolve(response);
+               // }
             });
          });
          req.end();
