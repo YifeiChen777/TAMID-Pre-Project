@@ -1,16 +1,17 @@
 'use strict';
 
+// MAKE SURE TO ENTER YOUR RapidAPI KEY HERE: (ex. const RapidAPI_KEY = "7277655346msh461e0f9f... ETC.");
+const RAPIDAPI_KEY = "7277655346msh461e0f9f07d7b79p18d3d0jsn042f30eb8a12";
+
 const express = require('express');
 const path = require('path');
 const Judge0 = require('./judge0');
+const judge0 = new Judge0(RAPIDAPI_KEY);
 
 // Constants
 const PORT = process.env.PORT || 8080;
 const HOST = '0.0.0.0';
 const JAVA_ID = 62;
-
-// MAKE SURE TO ENTER YOUR RapidAPI KEY HERE: (ex. const RapidAPI_KEY = "7277655346msh461e0f9f... ETC.");
-const RAPIDAPI_KEY = "7277655346msh461e0f9f07d7b79p18d3d0jsn042f30eb8a12";
 
 const CLIENT_BUILD_PATH = path.join(__dirname, '../../client/build');
 
@@ -34,10 +35,9 @@ app.get('/api', (req, res) => {
 // Make sure to send to URL: http://localhost:8080/testpost
 
 app.post('/testpost', (req, res) => {
-   const input = {
+   let input = {
       text: req.body.text
    };
-   const judge0 = new Judge0(RAPIDAPI_KEY);
 
    async function theRequest(input) {
       let key = await judge0.makeRequest(input, JAVA_ID);
