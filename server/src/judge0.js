@@ -1,8 +1,11 @@
 var http = require("https");
 class Judge0 {
    
+   constructor(RAPIDAPI_Key){
+      this.RAPIDAPI_Key = RAPIDAPI_Key;
+   }
    // Requester:
-   makeRequest(input) {
+   makeRequest(input, language_id) {
       this.options = {
          "method": "POST",
          "hostname": "judge0.p.rapidapi.com",
@@ -10,8 +13,7 @@ class Judge0 {
          "path": "/submissions",
          "headers": {
             "x-rapidapi-host": "judge0.p.rapidapi.com",
-            "x-rapidapi-key": "7277655346msh461e0f9f07d7b79p18d3d0jsn042f30eb8a12",
-            // "x-rapidapi-key": "519e799354msh72acb258a26b37ap14a703jsn80c6410d69c6",
+            "x-rapidapi-key": this.RAPIDAPI_Key,
             "content-type": "application/json",
             "accept": "application/json",
             "useQueryString": true
@@ -28,14 +30,12 @@ class Judge0 {
 
             res.on("end", function () {
                var body = Buffer.concat(chunks);
-               // console.log(body.toString());
                key = body.toString();
                resolve(key);
             });
          });
          req.write(JSON.stringify({
-            language_id: 62,
-            //   source_code: 'public class Main { public static void main(String[] args) {   System.out.println("hello, world. this is Aaron!");   } }', 
+            language_id: language_id,
             source_code: input,
             stdin: 'world'
          }));
@@ -43,9 +43,7 @@ class Judge0 {
       });
    }
 
-   // Submission Getter
-   submissiongetter(key) {
-      // Get key from JSON object
+   submissionGetter(key) {
       let key_object = JSON.parse(key);
       this.key = key_object.token;
 
@@ -55,11 +53,9 @@ class Judge0 {
             "hostname": "judge0.p.rapidapi.com",
             "port": null,
             "path": `/submissions/${this.key}`,
-            // "path": `/submissions/7e756619-529e-453c-bf87-8f3935910593`,
             "headers": {
                "x-rapidapi-host": "judge0.p.rapidapi.com",
-               "x-rapidapi-key": "7277655346msh461e0f9f07d7b79p18d3d0jsn042f30eb8a12",
-               // "x-rapidapi-key": "519e799354msh72acb258a26b37ap14a703jsn80c6410d69c6",
+               "x-rapidapi-key": this.RAPIDAPI_Key,
                "useQueryString": true
             }
          };
@@ -72,14 +68,7 @@ class Judge0 {
             res.on("end", function () {
                var body = Buffer.concat(chunks);
                let response = body.toString();
-               // let response_object = JSON.parse(response);
-               // console.log(response_object.status.id);
                resolve(response);
-               // if (response_object.status.id <= 2){
-               //    setTimeout(submissiongetter.bind(null, key), 200);
-               // } else {
-               // resolve(response);
-               // }
             });
          });
          req.end();

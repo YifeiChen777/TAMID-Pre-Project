@@ -7,6 +7,10 @@ const Judge0 = require('./judge0');
 // Constants
 const PORT = process.env.PORT || 8080;
 const HOST = '0.0.0.0';
+const JAVA_ID = 62;
+
+// MAKE SURE TO ENTER YOUR RapidAPI KEY HERE: (ex. const RapidAPI_KEY = "7277655346msh461e0f9f... ETC.");
+const RAPIDAPI_KEY = "7277655346msh461e0f9f07d7b79p18d3d0jsn042f30eb8a12";
 
 const CLIENT_BUILD_PATH = path.join(__dirname, '../../client/build');
 
@@ -26,38 +30,19 @@ app.get('/api', (req, res) => {
    res.send(JSON.stringify(data, null, 2));
 });
 
-app.get('/posthere', (req, res) => {
-
-   let input = 'public class Main { public static void main(String[] args) {   System.out.println("hello, world. this is Aaron!");   } }';
-   const judge0 = new Judge0();
-
-   async function theRequest(input) {
-      let key = await judge0.makeRequest(input);
-      console.log(key);
-      let response = await judge0.submissiongetter(key);
-      console.log(response);
-   }
-   theRequest(input);
-   const submission = {
-      text: req.body.text
-   }
-   //   console.log(submission);
-   res.send(submission);
-});
-
-// Test post
+// Send a post using "Postman" (chrome extension available online)
+// Make sure to send to URL: http://localhost:8080/testpost
 
 app.post('/testpost', (req, res) => {
    const input = {
       text: req.body.text
    };
-   // let input = 'public class Main { public static void main(String[] args) {   System.out.println("hello, world. this is Aaron!");   } }';
-   const judge0 = new Judge0();
+   const judge0 = new Judge0(RAPIDAPI_KEY);
 
    async function theRequest(input) {
-      let key = await judge0.makeRequest(input);
+      let key = await judge0.makeRequest(input, JAVA_ID);
       async function waitResponse() {
-         let response = await judge0.submissiongetter(key);
+         let response = await judge0.submissionGetter(key);
          let response_object = JSON.parse(response);
          console.log(response_object);
          if (response_object.status.id <= 2) {
