@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 
 import './App.scss';
+import Submissions from './submissions/submissions';
 
 class App extends Component {
   constructor() {
@@ -50,6 +51,7 @@ class App extends Component {
         </p>
         <h1>ASHER IS WATCHING</h1>
         <p>{this.state.message || 'No message'}</p>
+        <Submissions/>
       </div>
     );
   }
