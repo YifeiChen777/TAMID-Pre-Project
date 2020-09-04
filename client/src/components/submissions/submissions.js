@@ -31,8 +31,8 @@ class Submissions extends Component {
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         body: JSON.stringify(body) // body data type must match "Content-Type" header
         });
-
-    this.setState({ results : response});
+      const json = await response.json();
+      this.setState({ results : json});
   }
 
   render() {
