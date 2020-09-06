@@ -1,31 +1,39 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-    button: {
-        margin: theme.spacing(1),
-    },
-}));
 
 class ExecuteButton extends Component { 
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      loading: false
+    };
   }
 
   render() {
-    return (
-        <div>
+    let button; 
+    if (this.props.loading) {
+      button = <CircularProgress/>
+    }
+    else {
+      button  = 
           <Button
             variant="contained"
             color="primary"
+            onClick={this.props.handleClick}
             endIcon={<PlayArrowIcon/>}
           >
             Execute
           </Button>
-            
+
+    }
+    return (
+      
+        <div>
+          {button}
         </div>
     )
   }
