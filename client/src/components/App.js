@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import logo from './logo.svg';
 
 import './App.scss';
 import Submissions from './submissions/submissions';
+import ExecuteButton from './Spinner/ExecuteButton';
+import CodeEditor from './CodeEditor/CodeEditor';
 
 class App extends Component {
+
   constructor() {
     super();
 
@@ -15,7 +19,7 @@ class App extends Component {
   componentDidMount() {
     this.callApi()
       .then(res => this.setState(res))
-      .catch(console.error);
+      .catch(err => console.log(err));
   }
 
   callApi = async () => {
@@ -27,9 +31,10 @@ class App extends Component {
 
     let data = null;
     try {
+      console.log(`Data is: ${text}`);
       data = JSON.parse(text); // cannot call both .json and .text - await resp.json();
     } catch (e) {
-      console.err(`Invalid json\n${e}`);
+      console.log(`Invalid json: ${e}`);
     }
 
     if (resp.status !== 200) {
@@ -42,16 +47,20 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <h1>ASHER IS WATCHING</h1>
-        <p>{this.state.message || 'No message'}</p>
-        <Submissions/>
+        <Grid container spacing = {3}
+          justify="center"
+          alignItems="center"
+        >
+          <Grid item xs={12} sm={5}>
+            <CodeEditor/>
+          </Grid>
+          <Grid item xs={4} sm={2}>
+            <ExecuteButton/>
+          </Grid>
+          <Grid item xs={12} sm={5}>
+            <CompilerResult/>
+          </Grid> 
+        </Grid>
       </div>
     );
   }
