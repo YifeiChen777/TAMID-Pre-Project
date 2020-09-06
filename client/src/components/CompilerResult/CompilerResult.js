@@ -15,6 +15,8 @@ class CompilerResult extends Component {
         result = <Paper className='loading' elevation={5}></Paper> 
       }
       else {
+        // TODO 
+
         result = <Paper className='compilerResult' elevation={3}> <code> {this.props.executionResult} </code></Paper>
       }
       return (

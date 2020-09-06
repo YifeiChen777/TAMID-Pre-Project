@@ -7,28 +7,15 @@ class CodeEditor extends Component {
 
     constructor(){
       super();
-      this.state = {
-        sourceCode: `
-        // simply using react papers here
-
-        // should be an editable text box
-
-          import java.util.Stack;
-
-          public class HelloWorld {
-              public static void main(String[] args){ 
-                System.out.println('hello world');
-              }
-          }
-          
-          
-          `,
-      };
+      this.state = {};
     }    
 
     render() {
       return (
+        // TODO 
+        // Paper component and text area should be replaced by codemirror or other code editor 
         <div>
+
           <Paper className='codeEditor' elevation={3}>
             <textarea 
               placeholder="Write your Java code here" 
