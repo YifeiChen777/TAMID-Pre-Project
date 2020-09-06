@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import logo from './logo.svg';
-
-import './App.scss';
-import Submissions from './submissions/submissions';
 import ExecuteButton from './Spinner/ExecuteButton';
 import CodeEditor from './CodeEditor/CodeEditor';
 import CompilerResult from './CompilerResult/CompilerResult';
+import fetchResult from '../api/fetchResult';
+import './App.scss';
 
 class App extends Component {
 
@@ -16,24 +13,33 @@ class App extends Component {
 
     this.state = {
       loading: false,
-      executionResult: 'The output of your code will be displayed here'
+      executionResult: null, 
+      sourceCode: `
+public class Main {
+
+  public static void main(String[] args) {
+    // Write your Java code here
+
+
+  }
+}
+    `
     };
   }
 
-  handleClick = () => {
-    this.setState({ loading: true });
-
-
-    // simulate server fetching until back-end is wired up
-    // spin for 2 seconds to simulate api fetching.
-    setTimeout(() => {
-      this.setState({ loading: false })
-      // placeholder for now
-      // but this should call the api to get the executionResult
-      this.setState({ executionResult: 'Hello World'}); 
-
-    }, 2000);
+  onSourceCodeChange = (event) => {
+    this.setState({ sourceCode: event.target.value });
   }
+
+  handleClick = async () => {
+    this.setState({ loading: true });
+    const data = { 'text': this.state.sourceCode };
+    const executionResult = await fetchResult(data);
+    this.setState({ 
+      executionResult,
+      loading: false
+  });
+}
 
   componentDidMount() {
     this.callApi()
@@ -70,7 +76,10 @@ class App extends Component {
           alignItems="center"
         >
           <Grid item xs={12} sm={5}>
-            <CodeEditor/>
+            <CodeEditor
+              sourceCode = {this.state.sourceCode}
+              onChange = {this.onSourceCodeChange}
+            />
           </Grid>
           <Grid item xs={4} sm={2}>
             <ExecuteButton 

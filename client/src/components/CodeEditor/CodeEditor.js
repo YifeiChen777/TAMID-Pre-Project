@@ -7,7 +7,6 @@ class CodeEditor extends Component {
 
     constructor(){
       super();
-      this.state = {};
     }    
 
     render() {
@@ -18,9 +17,11 @@ class CodeEditor extends Component {
 
           <Paper className='codeEditor' elevation={3}>
             <textarea 
-              placeholder="Write your Java code here" 
-              rows={8}
-              cols={20}
+              placeholder={this.props.sourceCode}
+              rows={18}
+              cols={40}
+              onChange={this.props.onChange}
+              defaultValue={this.props.sourceCode}
             />
           </Paper>
         </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import fetchResult from '../../api/fetchResult'
 import './submissions.scss';
 
 class Submissions extends Component {
@@ -13,28 +14,10 @@ class Submissions extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const body = {'text' : this.data.value};
-    console.log(body);
-    this.fetchResult(body);
+    const results = await fetchResult(body)
+    this.setState({ results: results })
   };
-
-  async fetchResult(body) {
-    const url = '/testpost';
-    const response = await fetch(url, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify(body) // body data type must match "Content-Type" header
-        });
-      const json = await response.json();
-      this.setState({ results : json});
-  }
-
+  
   render() {
     return (
       <div>
