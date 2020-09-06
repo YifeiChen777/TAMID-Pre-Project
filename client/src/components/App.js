@@ -25,7 +25,7 @@ class App extends Component {
 
 
     // simulate server fetching until back-end is wired up
-    // spin for 3 seconds to simulate api fetching.
+    // spin for 2 seconds to simulate api fetching.
     setTimeout(() => {
       this.setState({ loading: false })
       // placeholder for now
@@ -50,7 +50,6 @@ class App extends Component {
 
     let data = null;
     try {
-      console.log(`Data is: ${text}`);
       data = JSON.parse(text); // cannot call both .json and .text - await resp.json();
     } catch (e) {
       console.log(`Invalid json: ${e}`);
