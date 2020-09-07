@@ -1,7 +1,6 @@
 
  async function fetchResult(body) {
     const url = '/testpost';
-    console.log(`BODY IS : ${JSON.stringify(body, null, 2)}`);
     const response = await fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
