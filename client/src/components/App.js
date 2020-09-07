@@ -27,9 +27,11 @@ public class Main {
     };
   }
 
-  onSourceCodeChange = (event) => {
-    this.setState({ sourceCode: event.target.value });
+  onSourceCodeChange = (newValue) => {
+    this.setState({ sourceCode: newValue });
+    // console.log(this.state.sourceCode);
   }
+
 
   handleClick = async () => {
     this.setState({ loading: true });
@@ -78,7 +80,8 @@ public class Main {
           <Grid item xs={12} sm={5}>
             <CodeEditor
               sourceCode = {this.state.sourceCode}
-              onChange = {this.onSourceCodeChange}
+              onSourceCodeChange = {this.onSourceCodeChange}
+              loading={this.state.loading}
             />
           </Grid>
           <Grid item xs={4} sm={2}>
