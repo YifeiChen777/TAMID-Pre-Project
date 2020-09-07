@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Paper } from '@material-ui/core';
+import  Paper  from '@material-ui/core/Paper';
 import './CodeEditor.scss'
 
 // Placeholder implementation of CodeEditor
@@ -7,6 +7,7 @@ class CodeEditor extends Component {
 
     constructor(){
       super();
+      this.state={}
     }    
 
     render() {

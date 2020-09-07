@@ -1,7 +1,8 @@
 // TODO
 
 
-.compilerResult{
+.compilerResult{  
+  background-color: green;
   margin-right: 15%;
   padding: 10%;
 }
@@ -12,7 +13,7 @@
 }
 
 .compiler-error {
-  color: red;
+  background-color: red;
   margin-right: 15%;
   padding: 10%;
 }
