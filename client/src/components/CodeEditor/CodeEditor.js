@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Paper } from '@material-ui/core';
 import './CodeEditor.scss'
 import AceEditor from "react-ace";
 import PropTypes from 'prop-types';
@@ -11,15 +10,31 @@ import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/theme-xcode";
 import "ace-builds/src-noconflict/ext-language_tools"
 
+import ReactResizeDetector from 'react-resize-detector'
+
+
 class CodeEditor extends Component {
 
     constructor(){
       super();
+      this.state = {
+        editorHeight: 400,
+        editorWidth: "auto"
+      }
+      this.onResize = this.onResize.bind(this)
+    }
+
+    onResize (w, h) {
+      this.setState({
+        editorHeight: h,
+        editorWidth: w
+      })
     }
 
     render() {
       return (
-        <div>
+        <div className="resizable">
+          <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
           <AceEditor
               className='codeEditor'
               mode="java"
@@ -34,6 +49,15 @@ class CodeEditor extends Component {
                 enableSnippets: true
               }}
               readOnly={this.props.loading}
+              // height={Infinity}
+              // width={Infinity}
+              onLoad={editorInstance => {
+                editorInstance.container.style.resize = "both";
+                // mouseup = css resize end
+                document.addEventListener("mouseup", e => (
+                  editorInstance.resize()
+                ));
+              }}
           />
         </div>
       );
