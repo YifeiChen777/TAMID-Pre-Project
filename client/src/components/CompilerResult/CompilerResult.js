@@ -29,7 +29,7 @@ class CompilerResult extends Component {
               className="compiler-error" 
               style={{backgroundColor: '#FCC2C2'}}>
               <p style = {{color: '#900C3F'}}>
-                {this.props.executionResult.status.description}
+                Status: {this.props.executionResult.status.description}
               </p>
               <p style = {{color: '#900C3F'}}>
               {this.props.executionResult.compile_output}
@@ -40,11 +40,11 @@ class CompilerResult extends Component {
       else{
         result = 
         <Paper className='compilerResult' elevation={3} style={{backgroundColor: '#ABEBC6'}}> 
-          <p style = {{color: '#0B5345'}}>
-            Output: {this.props.executionResult.stdout}
-          </p>
           <p style ={{color: '#0B5345'}}>
             Status: {this.props.executionResult.status.description}
+          </p>
+          <p style = {{color: '#0B5345'}}>
+            Output: {this.props.executionResult.stdout}
           </p>
         </Paper>
       }
