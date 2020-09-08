@@ -29,7 +29,6 @@ public class Main {
 
   onSourceCodeChange = (newValue) => {
     this.setState({ sourceCode: newValue });
-    // console.log(this.state.sourceCode);
   }
 
 

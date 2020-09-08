@@ -11,43 +11,20 @@ import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/theme-xcode";
 import "ace-builds/src-noconflict/ext-language_tools"
 
-// Placeholder implementation of CodeEditor
 class CodeEditor extends Component {
 
     constructor(){
       super();
     }
-    
-    // onChange = (val) =>  {
-    //   // this.props.onSourceCodeChange(e.target.value)
-    //   // this.setState({ code: e.target.value });
-    //   console.log("change", val);
-    //   this.props.onSourceCodeChange(val);
-    // }
-    
 
     render() {
       return (
-        // TODO 
-        // Paper component and text area should be replaced by codemirror or other code editor 
         <div>
-
-          {/* <Paper className='codeEditor' elevation={3}>
-            <textarea 
-              placeholder={this.props.sourceCode}
-              rows={18}
-              cols={40}
-              onChange={this.props.onChange}
-              defaultValue={this.props.sourceCode}
-            />
-          </Paper> */}
-
           <AceEditor
               className='codeEditor'
               mode="java"
               theme="xcode"
               onChange={this.props.onSourceCodeChange}
-              // onChange={this.onChange}
               // name="UNIQUE_ID_OF_DIV"
               value={this.props.sourceCode}
               editorProps={{ $blockScrolling: true }}
@@ -64,7 +41,9 @@ class CodeEditor extends Component {
 }
 
 CodeEditor.propTypes = {
-  onSourceCodeChange: PropTypes.func.isRequired
+  onSourceCodeChange: PropTypes.func.isRequired,
+  sourceCode: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired
 }
 
 export default CodeEditor;
