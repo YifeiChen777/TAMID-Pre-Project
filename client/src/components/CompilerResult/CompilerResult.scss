@@ -7,13 +7,16 @@
 }
 
 .no-result {
-  background-color: grey;
   margin-right: 15%;
   padding: 10%;
 }
 
 .compiler-error {
-  background-color: red;
+  margin-right: 15%;
+  padding: 10%;
+}
+
+.runtime-error {
   margin-right: 15%;
   padding: 10%;
 }

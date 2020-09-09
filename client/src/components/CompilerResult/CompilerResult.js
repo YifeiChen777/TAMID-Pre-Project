@@ -11,10 +11,10 @@ class CompilerResult extends Component {
 
     render() {
       let result;
-      if (this.props.loading) {
+      if (this.props.loading) { //Loading
         result = <Paper className='loading' elevation={5}>Loading...</Paper> 
       }
-      else if (this.props.executionResult == null){
+      else if (this.props.executionResult == null){ //No Result
         result = 
         <Paper className='no-result' style={{backgroundColor: '#ECECEC'}}>
           <p style={{color: '#6A6A6A'}}>
@@ -22,7 +22,7 @@ class CompilerResult extends Component {
           </p>
         </Paper>
       }
-      else if (this.props.executionResult.compile_output) {
+      else if (this.props.executionResult.compile_output) { //Compile Error
         if(this.props.executionResult.status.description){
           result = 
             <Paper 
@@ -37,9 +37,25 @@ class CompilerResult extends Component {
             </Paper>
         }
       }
-      else{
+      else if (this.props.executionResult.stderr){ //Runtime Error
         result = 
-        <Paper className='compilerResult' elevation={3} style={{backgroundColor: '#ABEBC6'}}> 
+          <Paper 
+              className="runtime-error" 
+              style={{backgroundColor: '#FCC2C2'}}>
+              <p style = {{color: '#900C3F'}}>
+                Status: {this.props.executionResult.status.description}
+              </p>
+              <p style = {{color: '#900C3F'}}>
+              {this.props.executionResult.stderr}
+              </p>
+          </Paper>
+      }
+      else{ //Success 
+        result = 
+        <Paper 
+          className='compilerResult' 
+          elevation={3} 
+          style={{backgroundColor: '#ABEBC6'}}> 
           <p style ={{color: '#0B5345'}}>
             Status: {this.props.executionResult.status.description}
           </p>
