@@ -17,6 +17,7 @@ services:
     build:
       context: ./client/
     command: npm start
+    stdin_open: true
     volumes:
       - ./client/:/usr/app
       - /usr/app/node_modules
