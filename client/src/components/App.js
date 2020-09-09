@@ -36,6 +36,7 @@ public class Main {
     this.setState({ loading: true });
     const data = { 'text': this.state.sourceCode };
     const executionResult = await fetchResult(data);
+    console.log({'result': executionResult.status.description});
     this.setState({ 
       executionResult,
       loading: false
@@ -68,6 +69,7 @@ public class Main {
 
     return data;
   };
+
 
   render() {
     return (

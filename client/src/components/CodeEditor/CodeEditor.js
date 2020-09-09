@@ -30,7 +30,6 @@ class CodeEditor extends Component {
         editorWidth: w
       })
     }
-
     render() {
       return (
         <div className="resizable">
